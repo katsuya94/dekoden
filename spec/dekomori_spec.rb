@@ -5,7 +5,30 @@ describe Dekomori do
     expect(Dekomori::VERSION).not_to be nil
   end
 
-  it "does something useful" do
-    expect(false).to eq(true)
+  TestCollection = Dekomori::Collection.new
+
+  class Bar < TestCollection::Decorator
+    def initialize(pre, post)
+      @pre = pre
+      @post = post
+    end
+
+    def around
+      [@pre, yield, @post]
+    end
   end
+
+  class Foo
+    include TestCollection
+
+    Bar "bleep", "bloop"
+    def baz
+      "blop"
+    end
+  end
+
+  it "wraps instance methods" do
+    expect(Foo.new.baz).to eq(["bleep", "blop", "bloop"])
+  end
+
 end
