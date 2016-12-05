@@ -1,11 +1,11 @@
 require "spec_helper"
 
-describe Dekomori do
+describe Dekoden do
   it "has a version number" do
-    expect(Dekomori::VERSION).not_to be nil
+    expect(Dekoden::VERSION).not_to be nil
   end
 
-  TestCollection = Dekomori::Collection.new
+  TestCollection = Dekoden::Collection.new
 
   class Bar < TestCollection::Decorator
     def initialize(pre, post)

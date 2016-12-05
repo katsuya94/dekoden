@@ -1,10 +1,9 @@
-require "dekomori/version"
+require "dekoden/version"
 
-module Dekomori
+module Dekoden
   class Decorator
     def initialize(*args, &blk)
     end
-
 
     def around
       yield

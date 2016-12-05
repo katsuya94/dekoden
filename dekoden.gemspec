@@ -1,16 +1,16 @@
 # coding: utf-8
-lib = File.expand_path('../lib', __FILE__)
+lib = File.expand_path("../lib", __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'dekomori/version'
+require "dekoden/version"
 
 Gem::Specification.new do |spec|
-  spec.name          = "dekomori"
-  spec.version       = Dekomori::VERSION
+  spec.name          = "dekoden"
+  spec.version       = Dekoden::VERSION
   spec.authors       = ["Adrien Katsuya Tateno"]
   spec.email         = ["adrien.k.tateno@gmail.com"]
 
-  spec.summary       = %q{dekomori decorates methods}
-  spec.homepage      = "https://github.com/katsuya94/dekomori"
+  spec.summary       = %q{dekoden decorates methods}
+  spec.homepage      = "https://github.com/katsuya94/dekoden"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0").reject do |f|
