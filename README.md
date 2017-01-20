@@ -20,20 +20,23 @@ Or install it yourself as:
 ## Usage
 
 ```ruby
-MyCollection = Dekoden::Collection.new
+require "dekoden"
 
-class MyDecorator < MyCollection::Decorator
-  def initialize(suffix)
-    @suffix = suffix
-  end
+module MyCollection
+  class MyDecorator
+    def initialize(suffix)
+      @suffix = suffix
+    end
 
-  def around(message)
-    yield(message + @suffix)
+    def call(*args, blk)
+      yield(*args, blk) + @suffix
+    end
   end
 end
 
 class MyClass
-  include MyCollection
+  extend Dekoden::Decoratable
+  decorators MyCollection
 
   MyDecorator " World"
   def my_method(message)
@@ -43,6 +46,53 @@ end
 
 MyClass.new.my_method("Hello")
 # => "Hello World"
+
+# Make all classes and modules decoratable
+class Module
+  include Dekoden::Decoratable
+end
+
+# Make decorators available to all classes and modules
+class Module
+  include Dekoden::Decoratable
+  singleton_decorators MyCollection
+end
+
+# Instance methods (inherited)
+
+class MyClass
+  MyDecorator " World"
+  def my_method(message)
+    message
+  end
+end
+
+# Class methods (inherited)
+
+class MyClass
+  MyDecorator " World"
+  def self.my_method(message)
+    message
+  end
+end
+
+# Module methods (to be included)
+
+module MyModule
+  MyDecorator " World"
+  def my_method(message)
+    message
+  end
+end
+
+# Module methods (to be called directly or extended)
+
+class MyModule
+  MyDecorator " World"
+  def self.my_method(message)
+    message
+  end
+end
 ```
 
 ## Development
