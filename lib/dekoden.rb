@@ -45,6 +45,17 @@ module Dekoden
       end
     end
 
+    def singleton_decorators(*mojules)
+      mojules.each do |mojule|
+        mojule.constants.each do |constant|
+          decorator_klass = mojule.const_get(constant)
+          define_method(constant) do |*args, &blk|
+            unbound_decorators << decorator_klass.new(*args, &blk)
+          end
+        end
+      end
+    end
+
     def unbound_decorators
       @unbound_decorators ||= []
     end
